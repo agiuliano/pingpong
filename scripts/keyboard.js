@@ -2,7 +2,9 @@ window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false)
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 
 var Key = {
-  _pressed: {},
+  _pressed: {
+    S: true
+  },
 
   A: 65,
   W: 87,
@@ -12,6 +14,10 @@ var Key = {
   
   isDown: function(keyCode) {
     return this._pressed[keyCode];
+  },
+
+  isUp: function(keyCode) {
+    return this._pressed[keyCode] == undefined;
   },
   
   onKeydown: function(event) {
