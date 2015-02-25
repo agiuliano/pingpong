@@ -1,4 +1,20 @@
+
+//variables for scene
 var renderer, scene, camera, pointLight, spotLight;
+
+//sphere's dimensions
+var radius = 5, segments = 10, rings = 10;
+
+//variables for the plane
+var planeWidth = 400, planeHeight = 200, planeQuality = 50;
+
+//variables for the paddles
+var paddleWidth = 10, paddleHeight = 30, paddleDepth = 10, paddleQuality = 1;
+
+//object's variables 
+var ball, paddle1, paddle2;
+
+
 
 function setup()
 {
@@ -22,16 +38,14 @@ function draw()
 function createScene()
 {
 	// set the scene size
-	var WIDTH = 640,
-	HEIGHT = 360;
+	var width = 640, height = 360;
 
-	var VIEW_ANGLE = 45;
-	var ASPECT = WIDTH / HEIGHT;
+	var VIEW_ANGLE = 50;
+	var ASPECT = width / height;
 	var NEAR = 1;
 	var FAR = 1000;
 	 
-	
-	var c = document.getElementById("gameCanvas");
+	var canvas = document.getElementById("gameCanvas");
 
 	renderer = new THREE.WebGLRenderer();
 	camera = new THREE.PerspectiveCamera(
@@ -42,50 +56,32 @@ function createScene()
 
 	scene = new THREE.Scene();
 	scene.add(camera);
-
+	
+	//this is needed because otherwise we haven't a correct 
+	//rendering for the shadow
 	camera.position.z = 320;
 
-	renderer.setSize(WIDTH, HEIGHT);
+	renderer.setSize(width, height);
 
-	c.appendChild(renderer.domElement);
+	canvas.appendChild(renderer.domElement);
 
-	 
-	
-	 
-	
-	 
-	// add the camera to the scene
-	
-	 
-	// set a default position for the camera
-	// not doing this somehow messes up shadow rendering
-	
-
-
-	var radius = 20;
-	var segments = 10;
-	var rings = 20;
-	 
+//--------------------------------------------------------------------------	
 	// create the sphere's material
 	var sphereMaterial = new THREE.MeshPhongMaterial({
 		color: 0x017ad4,
-
 	});
 	 
-	// Create a ball with sphere geometry
-	var ball = new THREE.Mesh(
-	    new THREE.SphereGeometry(radius,
-	    segments,
-	    rings),
-	    sphereMaterial);
-
+	//Create a ball with SphereGeometry method
+	ball = new THREE.Mesh( new THREE.SphereGeometry(radius,
+	    segments,rings),sphereMaterial);
 	 
-	// add the sphere to the scene
+	//add the sphere to the scene
 	scene.add(ball);
+//--------------------------------------------------------------------------
 
+//DA VEDERE POINTLIGHT
 
-
-	// // create a point light
+	//create a point light
 	pointLight = new THREE.PointLight(0xffffff);
 	 
 	// set its position
@@ -98,18 +94,15 @@ function createScene()
 	// add to the scene
 	scene.add(pointLight);
 
-
+//--------------------------------------------------------------------------
 	// create the plane's material	
 	var planeMaterial =
-	new THREE.MeshLambertMaterial(
+	new THREE.MeshPhongMaterial(
 	{
 	    color: 0x4BD121
 	});
 	 
 
-	var planeWidth = 100;
-	var planeHeight = 20;
-	var planeQuality = 100;
 	// create the playing surface plane
 	var plane = new THREE.Mesh(
 	    new THREE.PlaneGeometry(
@@ -120,4 +113,45 @@ function createScene()
 	    planeMaterial);
 	 
 	scene.add(plane);
+//--------------------------------------------------------------------------
+	
+		
+	//create the first paddle
+	paddle1_Material = new THREE.MeshPhongMaterial({
+		color: 0x1B32C0
+	});
+
+	paddle1 = new THREE.Mesh(new THREE.CubeGeometry(
+			paddleWidth, paddleHeight, paddleDepth,paddleQuality,10,10),
+			paddle1_Material);
+	
+	//add paddle1 to the scene
+	scene.add(paddle1);
+	
+	//set position of paddle1
+	paddle1.position.x = -planeWidth/2 + paddleWidth;
+	
+	//to make the shadow
+	paddle1.receiveShadow = true;
+	paddle1.castShadow = true;
+	
+	//create the second paddle
+	paddle2_Material = new THREE.MeshPhongMaterial({
+		color: 0xFF0000
+	});
+	
+	paddle2 = new THREE.Mesh(new THREE.CubeGeometry(
+			paddleWidth, paddleHeight, paddleDepth,paddleQuality,10,10),
+			paddle2_Material);
+	
+	//add paddle2 to the scene
+	scene.add(paddle2);
+	
+	//set position of paddle1
+	paddle2.position.x = planeWidth/2 - paddleWidth;
+	
+	
+	
+	
+	
 }
