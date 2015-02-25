@@ -29,8 +29,14 @@ function draw()
  
     // loop the draw() function
     requestAnimationFrame(draw);
- 
-    // process game logic
+	
+	camera.position.x = paddle1.position.x - 100;
+	camera.position.z = paddle1.position.z + 100;
+	//YAW rotation "Rotation around y axis
+	camera.rotation.y = -60 * Math.PI/180;
+	//ROLL rotation "rotation around z axis"
+	camera.rotation.z = -90 * Math.PI/180; //value in radians
+	
 
 }
 
@@ -77,6 +83,10 @@ function createScene()
 	 
 	//add the sphere to the scene
 	scene.add(ball);
+	
+	ball.position.z = radius;
+	ball.receiveShadow = true;
+    ball.castShadow = true;
 //--------------------------------------------------------------------------
 
 //DA VEDERE POINTLIGHT
@@ -118,7 +128,7 @@ function createScene()
 		
 	//create the first paddle
 	paddle1_Material = new THREE.MeshPhongMaterial({
-		color: 0x1B32C0
+		color: 0xFFFF00 //1B32C0
 	});
 
 	paddle1 = new THREE.Mesh(new THREE.CubeGeometry(
@@ -134,6 +144,8 @@ function createScene()
 	//to make the shadow
 	paddle1.receiveShadow = true;
 	paddle1.castShadow = true;
+			
+	paddle1.position.z = paddleDepth;
 	
 	//create the second paddle
 	paddle2_Material = new THREE.MeshPhongMaterial({
@@ -150,8 +162,12 @@ function createScene()
 	//set position of paddle1
 	paddle2.position.x = planeWidth/2 - paddleWidth;
 	
+	//to make the shadow
+	paddle2.receiveShadow = true;
+	paddle2.castShadow = true;
+
+	paddle2.position.z = paddleDepth;
 	
-	
-	
+//--------------------------------------------------------------------------	
 	
 }
