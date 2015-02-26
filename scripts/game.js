@@ -18,8 +18,11 @@ var ball, paddle1, paddle2;
 //ball movement
 var ballDirX = 1, ballDirY = 1, ballSpeed = 2;
 
-var paddleSpeed = 15;
+var paddleSpeed = 5;
 var score_P1 = 0, score_P2 = 0; scoreToWin = 2;
+
+//higher value implies greater difficulty
+var set_diff = 0.5;
 
 
 function setup()
@@ -65,6 +68,7 @@ function draw()
     requestAnimationFrame(draw);
 
     playerPaddleBehaviour();
+	opponentPaddleMovement();
     ballBehaviour();
 	
 }
@@ -242,7 +246,6 @@ function playerPaddleBehaviour()
 	// else don't move paddle
 	else
 	{
-		// stop the paddle
 		paddle1DirY = 0;
 	}
 
@@ -252,7 +255,43 @@ function playerPaddleBehaviour()
 	paddle1.position.y += paddle1DirY;
 }
 //--------------------------------------------------------------------------
+function opponentPaddleMovement(){
 
+	//The axis of the paddle's movement is y
+	paddle2DirY = (ball.position.y - paddle2.position.y) * set_diff/2;
+	
+	// in case the Lerp function produces a value above max paddle speed, we clamp it
+	if ((paddle2DirY) <= paddleSpeed)
+	{	
+		paddle2.position.y += paddle2DirY;
+	}
+	// if the lerp value is too high, we have to limit speed to paddleSpeed
+	else
+	{
+		// if paddle is lerping in +ve direction
+		if (paddle2DirY > paddleSpeed)
+		{
+			paddle2.position.y += paddleSpeed;
+		}
+		// if paddle is lerping in -ve direction
+		else if (paddle2DirY < -paddleSpeed)
+		{
+			paddle2.position.y -= paddleSpeed;
+		}
+	}
+	// We lerp the scale back to 1
+	// this is done because we stretch the paddle at some points
+	// stretching is done when paddle touches side of table and when paddle hits ball
+	// by doing this here, we ensure paddle always comes back to default size
+	paddle2.scale.y += (1 - paddle2.scale.y) * 0.2;	
+}
+
+
+
+
+
+
+//--------------------------------------------------------------------------
 function ballBehaviour(){
 	// if ball goes off the 'left' side (Player's side)
 	if (ball.position.x <= -planeWidth/2)
@@ -307,7 +346,7 @@ function ballBehaviour(){
 		ballDirY = -ballSpeed * 2;
 	}
 }
-
+//--------------------------------------------------------------------------
 function resetBall(loser){	
 	// if player lost the last point, we send the ball to opponent
 	if (loser == 1)
@@ -350,3 +389,4 @@ function checkScore(){
 	}
 
 }
+//--------------------------------------------------------------------------
