@@ -1,7 +1,7 @@
 
 //variables for scene
 var renderer, scene, camera, pointLight, spotLight;
-var width = 640, height = 360;
+var width = 640, height = 400;
 
 //sphere's dimensions
 var radius = 5, segments = 10, rings = 10;
@@ -19,8 +19,7 @@ var ball, paddle1, paddle2;
 var ballDirX = 1, ballDirY = 1, ballSpeed = 2;
 
 var paddleSpeed = 15;
-var score1 = 0, score2 = 0;
-
+var score_P1 = 0, score_P2 = 0; scoreToWin = 2;
 
 
 function setup()
@@ -67,8 +66,8 @@ function draw()
 
     playerPaddleBehaviour();
     ballBehaviour();
+	
 }
-
 
 
 
@@ -189,7 +188,7 @@ function createScene()
 	
 }
 
-
+//--------------------------------------------------------------------------
 function playerPaddleBehaviour()
 {
 	// move left
@@ -252,31 +251,33 @@ function playerPaddleBehaviour()
 
 	paddle1.position.y += paddle1DirY;
 }
+//--------------------------------------------------------------------------
 
-function ballBehaviour()
-{
+function ballBehaviour(){
 	// if ball goes off the 'left' side (Player's side)
 	if (ball.position.x <= -planeWidth/2)
 	{	
-		// CPU scores
-		score2++;
+		//add 1 point to the opponent
+		score_P2++;
 		// update scoreboard HTML
-		document.getElementById("scores").innerHTML = score1 + "-" + score2;
+		document.getElementById("scores").innerHTML = score_P1 + "-" + score_P2;
 		// reset ball to center
 		resetBall(2);
-		// matchScoreCheck();	
+		
+		checkScore();		
 	}
 	
 	// if ball goes off the 'right' side (CPU's side)
 	if (ball.position.x >= planeWidth/2)
 	{	
 		// Player scores
-		score1++;
+		score_P1++;
 		// update scoreboard HTML
-		document.getElementById("scores").innerHTML = score1 + "-" + score2;
+		document.getElementById("scores").innerHTML = score_P1 + "-" + score_P2;
 		// reset ball to center
 		resetBall(1);
-		// matchScoreCheck();	
+		
+		checkScore();
 	}
 	
 	// if ball goes off the top side (side of table)
@@ -290,7 +291,7 @@ function ballBehaviour()
 		ballDirY = -ballDirY;
 	}
 	
-	// update ball position over time
+	//Update ball position over time
 	ball.position.x += ballDirX * ballSpeed;
 	ball.position.y += ballDirY * ballSpeed;
 	
@@ -307,8 +308,7 @@ function ballBehaviour()
 	}
 }
 
-function resetBall(loser)
-{	
+function resetBall(loser){	
 	// if player lost the last point, we send the ball to opponent
 	if (loser == 1)
 	{
@@ -326,4 +326,27 @@ function resetBall(loser)
 	
 	// set the ball to move +ve in y plane (towards left from the camera)
 	ballDirY = 1;
+}
+
+//--------------------------------------------------------------------------
+
+function checkScore(){
+	if(score_P1 === scoreToWin){
+		ballSpeed = 0;
+		
+		document.getElementById("scores").innerHTML = "Player wins!";		
+		document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
+		ball.position.x = 0;
+
+	}
+	
+	else if(score_P2 === scoreToWin){
+		ballSpeed = 0;
+		
+		document.getElementById("scores").innerHTML = "CPU wins!";
+		document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
+		
+		ball.position.x = 0;
+	}
+
 }
