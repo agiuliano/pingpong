@@ -18,11 +18,11 @@ var ball, paddle1, paddle2;
 //ball movement
 var ballDirX = 1, ballDirY = 1, ballSpeed = 2;
 
-var paddleSpeed = 5;
-var score_P1 = 0, score_P2 = 0; scoreToWin = 2;
+var paddleSpeed = 3;
+var score_P1 = 0, score_P2 = 0; scoreToWin = 5;
 
 //higher value implies greater difficulty
-var set_diff = 0.5;
+var set_diff = 0.7;
 
 
 function setup()
@@ -51,12 +51,22 @@ function setTheCamera()
 	//rendering for the shadow
 	camera.position.z = 320;
 
+	//old values camera
 	camera.position.x = paddle1.position.x - 100;
 	camera.position.z = paddle1.position.z + 100;
 	//YAW rotation "Rotation around y axis
 	camera.rotation.y = -60 * Math.PI/180;
+	// camera.rotation.x = 20 * Math.PI/180;
 	//ROLL rotation "rotation around z axis"
 	camera.rotation.z = -90 * Math.PI/180; //value in radians
+
+	// camera.position.x = paddle1.position.x ;
+	// camera.position.z = paddle1.position.z + 100;
+	// //YAW rotation "Rotation around y axis
+	// // camera.rotation.y = -20 * Math.PI/180;
+	// // camera.rotation.x = 20 * Math.PI/180;
+	// //ROLL rotation "rotation around z axis"
+	// camera.rotation.z = -90 * Math.PI/180; //value in radians
 }
 
 function draw()
@@ -70,6 +80,7 @@ function draw()
     playerPaddleBehaviour();
 	opponentPaddleMovement();
     ballBehaviour();
+    paddlePhysics();
 	
 }
 
@@ -151,7 +162,7 @@ function createScene()
 	});
 
 	paddle1 = new THREE.Mesh(new THREE.CubeGeometry(
-			paddleWidth, paddleHeight, paddleDepth,paddleQuality,10,10),
+			paddleWidth, paddleHeight, paddleDepth),
 			paddle1_Material);
 	
 	//add paddle1 to the scene
@@ -173,7 +184,7 @@ function createScene()
 	});
 	
 	paddle2 = new THREE.Mesh(new THREE.CubeGeometry(
-			paddleWidth, paddleHeight, paddleDepth,paddleQuality,10,10),
+			paddleWidth, paddleHeight, paddleDepth),
 			paddle2_Material);
 	
 	//add paddle2 to the scene
@@ -259,37 +270,34 @@ function opponentPaddleMovement(){
 
 	//The axis of the paddle's movement is y
 	paddle2DirY = (ball.position.y - paddle2.position.y) * set_diff;
+
 	
-	// in case the Lerp function produces a value above max paddle speed, we clamp it
+	// nel caso in cui il valore incrementale sulla posizione y del paddle sia sotto i limiti
+	// di velocità dettati da paddlespeed, allora posso incrementare la posizione del paddle
+	// del valore paddle2DirY che ci serve per inseguire la palla
 	if (Math.abs(paddle2DirY) <= paddleSpeed)
 	{	
 		paddle2.position.y += paddle2DirY;
 	}
-	// if the lerp value is too high, we have to limit speed to paddleSpeed
+
+	// altrimenti, abbiamo che il valore incrementale sulla direzione y del paddle, supererebbe la massima velocità consentita
+	// esempio: supponi che la max velocità è 5, e per inseguire la palla calcoliamo il valore paddle2DirY = 6.
+	// in questo caso, se non riportassimo la posizione entro i limiti di velocità si avrebbe che la opsizione verrebbe incrementata di 6
+	// però il player umano, può incrementare la sua posizione solo di 5, quindi non sarebbe fair.
+	// i limiti di bound della velocità sono quindi dettati da -5 e +5 in base a se ci stiamo muovendo a destra o sinistra.
 	else
 	{
-		// if paddle is lerping in +ve direction
 		if (paddle2DirY > paddleSpeed)
 		{
 			paddle2.position.y += paddleSpeed;
 		}
-		// if paddle is lerping in -ve direction
+
 		else if (paddle2DirY < -paddleSpeed)
 		{
 			paddle2.position.y -= paddleSpeed;
 		}
 	}
-	// We lerp the scale back to 1
-	// this is done because we stretch the paddle at some points
-	// stretching is done when paddle touches side of table and when paddle hits ball
-	// by doing this here, we ensure paddle always comes back to default size
-	paddle2.scale.y += (1 - paddle2.scale.y) * 0.2;	
 }
-
-
-
-
-
 
 //--------------------------------------------------------------------------
 function ballBehaviour(){
@@ -390,3 +398,61 @@ function checkScore(){
 
 }
 //--------------------------------------------------------------------------
+
+
+function paddlePhysics()
+{
+    // PLAYER PADDLE LOGIC
+ 
+	// if ball is aligned with paddle1 on x plane
+	// remember the position is the CENTER of the object
+	// we only check between the front and the middle of the paddle (one-way collision)
+	if (ball.position.x <= paddle1.position.x + paddleWidth
+	&&  ball.position.x >= paddle1.position.x)
+	{
+		// and if ball is aligned with paddle1 on y plane
+		if (ball.position.y <= paddle1.position.y + paddleHeight/2
+		&&  ball.position.y >= paddle1.position.y - paddleHeight/2)
+		{
+			// and if ball is travelling towards player (-ve direction)
+			if (ballDirX < 0)
+			{
+				// put some code to indicate a hit
+				
+				// switch direction of ball travel to create bounce
+				ballDirX = -ballDirX;
+				// we impact ball angle when hitting it
+				// this is not realistic physics, just spices up the gameplay
+				// allows you to 'slice' the ball to beat the opponent
+				ballDirY -= paddle1DirY * 0.7;
+			}
+		}
+	}
+ 
+	// OPPONENT PADDLE LOGIC	
+ 
+	// if ball is aligned with paddle2 on x plane
+	// remember the position is the CENTER of the object
+	// we only check between the front and the middle of the paddle (one-way collision)
+	if (ball.position.x <= paddle2.position.x + paddleWidth
+	&&  ball.position.x >= paddle2.position.x)
+	{
+		// and if ball is aligned with paddle2 on y plane
+		if (ball.position.y <= paddle2.position.y + paddleHeight/2
+		&&  ball.position.y >= paddle2.position.y - paddleHeight/2)
+		{
+			// and if ball is travelling towards opponent (+ve direction)
+			if (ballDirX > 0)
+			{
+				// put some code to indicate a hit
+				
+				// switch direction of ball travel to create bounce
+				ballDirX = -ballDirX;
+				// we impact ball angle when hitting it
+				// this is not realistic physics, just spices up the gameplay
+				// allows you to 'slice' the ball to beat the opponent
+				ballDirY -= paddle2DirY * 0.7;
+			}
+		}
+	}
+}
