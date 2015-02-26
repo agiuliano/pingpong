@@ -258,10 +258,10 @@ function playerPaddleBehaviour()
 function opponentPaddleMovement(){
 
 	//The axis of the paddle's movement is y
-	paddle2DirY = (ball.position.y - paddle2.position.y) * set_diff/2;
+	paddle2DirY = (ball.position.y - paddle2.position.y) * set_diff;
 	
 	// in case the Lerp function produces a value above max paddle speed, we clamp it
-	if ((paddle2DirY) <= paddleSpeed)
+	if (Math.abs(paddle2DirY) <= paddleSpeed)
 	{	
 		paddle2.position.y += paddle2DirY;
 	}
