@@ -239,25 +239,23 @@ function playerPaddleBehaviour()
 		}
 	}
 
-	else if (Key.isDown(Key.S))
+	// else don't move paddle
+	else
+	{
+		paddle1DirY = 0;
+	}
+
+	if (Key.isDown(Key.S))
 	{
 		if (paddle1.position.x < -planeWidth * 0.45) {
 			paddle1.position.x += 1;
 		}
 	}
-
 	else if (Key.isUp(Key.S))
 	{
 		if (paddle1.position.x > -planeWidth * 0.50) {
 			paddle1.position.x -= 3;
 		}
-		paddle1DirY = 0;
-	}
-
-	// else don't move paddle
-	else
-	{
-		paddle1DirY = 0;
 	}
 
 	//when the game starts the paddle will be resized to 1
