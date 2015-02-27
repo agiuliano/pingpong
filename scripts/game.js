@@ -1,6 +1,6 @@
 
 //variables for scene
-var renderer, scene, camera, pointLight, spotLight;
+var renderer, scene, camera;
 var width = 640, height = 400;
 
 //sphere's dimensions
@@ -84,6 +84,44 @@ function draw()
 	
 }
 
+function createLights()
+{
+	var light1, light2, light3, light4, light5, light6;
+	var posX = (planeWidth/2) * 1.2;
+	var posY = (planeHeight/2) * 1.2;
+	//create a point light
+	// light1 = new THREE.PointLight(0xffffff);
+	// light1.position.x = planeWidth/4;
+	// light1.position.y = planeHeight/4;
+	// light1.position.z = 20;
+	// light1.intensity = 2.9;
+	// light1.distance = 1000;
+
+	light1 = new THREE.SpotLight(0xffffff, 2);
+	light1.position.set( -posX, -posY, 30 );
+	light1.castShadow = true;
+	scene.add(light1);
+
+	light2 = new THREE.SpotLight(0xffffff, 2);
+	light2.position.set( posX, posY, 30 );
+	light2.castShadow = true;
+	scene.add(light2);
+
+	light3 = new THREE.SpotLight(0xffffff, 2);
+	light3.position.set( posX, -posY, 30 );
+	light3.castShadow = true;
+	scene.add(light3);
+
+	light4 = new THREE.SpotLight(0xffffff, 2);
+	light4.position.set( -posX, posY, 30 );
+	light4.castShadow = true;
+	scene.add(light4);
+
+	light5 = new THREE.SpotLight(0xffffff, 1);
+	light5.position.set( -posX, 0, 20 );
+	light5.castShadow = true;
+	scene.add(light5);
+}
 
 
 function createScene()
@@ -117,23 +155,8 @@ function createScene()
 	ball.position.z = radius;
 	ball.receiveShadow = true;
     ball.castShadow = true;
-//--------------------------------------------------------------------------
 
-//DA VEDERE POINTLIGHT
-
-	//create a point light
-	pointLight = new THREE.PointLight(0xffffff);
-	 
-	// set its position
-	pointLight.position.x = -100;
-	pointLight.position.y = 100;
-	pointLight.position.z = 20;
-	pointLight.intensity = 2.9;
-	pointLight.distance = 10000;
-	 
-	// add to the scene
-	scene.add(pointLight);
-
+    createLights();
 //--------------------------------------------------------------------------
 	// create the plane's material	
 	var planeMaterial =
