@@ -161,7 +161,7 @@ function createScene()
 		color: 0xFFFF00 //1B32C0
 	});
 
-	paddle1 = new THREE.Mesh(new THREE.CubeGeometry(
+	paddle1 = new THREE.Mesh(new THREE.BoxGeometry(
 			paddleWidth, paddleHeight, paddleDepth),
 			paddle1_Material);
 	
@@ -183,7 +183,7 @@ function createScene()
 		color: 0xFF0000
 	});
 	
-	paddle2 = new THREE.Mesh(new THREE.CubeGeometry(
+	paddle2 = new THREE.Mesh(new THREE.BoxGeometry(
 			paddleWidth, paddleHeight, paddleDepth),
 			paddle2_Material);
 	
