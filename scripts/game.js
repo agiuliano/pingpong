@@ -1,7 +1,7 @@
 
 //variables for scene
 var renderer, scene, camera;
-var width = 900, height = 600;
+var width = 1000, height = 600;
 
 //sphere's dimensions
 var radius = 5, segments = 10, rings = 10;
@@ -52,27 +52,27 @@ function setTheCamera()
 	camera.position.z = 320;
 
 	//old values camera
-	camera.position.x = paddle1.position.x - 100;
+	camera.position.x = -planeWidth/2 - 110;
+
 	camera.position.z = paddle1.position.z + 100;
+	// camera.position.z = paddle1.position.z;
 	//YAW rotation "Rotation around y axis
 	camera.rotation.y = -60 * Math.PI/180;
-	// camera.rotation.x = 20 * Math.PI/180;
+	// camera.rotation.y = -90 * Math.PI/180;
+	// camera.rotation.x = -60 * Math.PI/180;
 	//ROLL rotation "rotation around z axis"
 	camera.rotation.z = -90 * Math.PI/180; //value in radians
 
-	// camera.position.x = paddle1.position.x ;
-	// camera.position.z = paddle1.position.z + 100;
-	// //YAW rotation "Rotation around y axis
-	// // camera.rotation.y = -20 * Math.PI/180;
-	// // camera.rotation.x = 20 * Math.PI/180;
-	// //ROLL rotation "rotation around z axis"
-	// camera.rotation.z = -90 * Math.PI/180; //value in radians
+
 }
 
 function draw()
 {  
     // draw THREE.JS scene
+
     renderer.render(scene, camera);
+    renderer.setClearColor(0x5dbede, 1)
+
  
     // loop the draw() function
     requestAnimationFrame(draw);
@@ -178,6 +178,16 @@ function createScene()
 	    planeMaterial);
 	 
 	scene.add(plane);
+
+	var table_material = new THREE.MeshPhongMaterial({
+		color: 0x1B32C0, //1B32C0
+		metal: true
+	});
+	var table = new THREE.Mesh(new THREE.BoxGeometry(
+			planeWidth*1.05, planeHeight*1.1, 10),
+			table_material);
+	table.position.z = -6;
+	scene.add(table);
 //--------------------------------------------------------------------------
 	
 	var player_texture = THREE.ImageUtils.loadTexture( "images/player_texture.jpg" );
@@ -196,13 +206,13 @@ function createScene()
 	scene.add(paddle1);
 	
 	//set position of paddle1
-	paddle1.position.x = -planeWidth/2 + paddleWidth;
+	paddle1.position.x = -planeWidth/2 + paddleWidth/2;
 	
 	//to make the shadow
 	paddle1.receiveShadow = true;
 	paddle1.castShadow = true;
 			
-	paddle1.position.z = paddleDepth;
+	paddle1.position.z = paddleDepth/2;
 	paddle1.scale.y = 0.01;
 	
 	var opponent_texture = THREE.ImageUtils.loadTexture( "images/opponent_texture.jpg" );
@@ -227,7 +237,7 @@ function createScene()
 	paddle2.receiveShadow = true;
 	paddle2.castShadow = true;
 
-	paddle2.position.z = paddleDepth;
+	paddle2.position.z = paddleDepth/2;
 	
 //--------------------------------------------------------------------------	
 	
@@ -277,13 +287,13 @@ function playerPaddleBehaviour()
 
 	if (Key.isDown(Key.S))
 	{
-		if (paddle1.position.x < -planeWidth * 0.45) {
+		if (paddle1.position.x < -planeWidth * 0.43) {
 			paddle1.position.x += 3;
 		}
 	}
 	else if (Key.isUp(Key.S))
 	{
-		if (paddle1.position.x > -planeWidth * 0.50) {
+		if (paddle1.position.x > -planeWidth/2 + paddleWidth/2) {
 			paddle1.position.x -= 5;
 		}
 	}
