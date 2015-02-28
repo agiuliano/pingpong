@@ -141,11 +141,9 @@ function createScene()
 
 //--------------------------------------------------------------------------	
 
-	var ball_texture = THREE.ImageUtils.loadTexture( "images/ball_texture.jpg" );
 	// create the sphere's material
 	var sphereMaterial = new THREE.MeshPhongMaterial({
-		// color: 0x032149,
-		map: ball_texture
+		color: 0x032149,
 	});
 	 
 	//Create a ball with SphereGeometry method
