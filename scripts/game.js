@@ -86,17 +86,17 @@ function draw()
 
 function createLights()
 {
-	var light1, light2, light3, light4, light5, light6;
+	var light1, light2, light3, light4, light5, light6, point_light;
 	var posX = (planeWidth/2) * 1.2;
 	var posY = (planeHeight/2) * 1.2;
 
-	//create a point light
-	// light1 = new THREE.PointLight(0xffffff);
-	// light1.position.x = planeWidth/4;
-	// light1.position.y = planeHeight/4;
-	// light1.position.z = 20;
-	// light1.intensity = 2.9;
-	// light1.distance = 1000;
+	point_light = new THREE.PointLight(0xffffff);
+	point_light.position.x = -planeWidth/2+40;
+	point_light.position.y = 0;
+	point_light.position.z = 60;
+	point_light.intensity = 1;
+	point_light.distance = 100;
+	scene.add(point_light);
 
 	light1 = new THREE.SpotLight(0xffffff, 2);
 	light1.position.set( -posX, -posY, 30 );
