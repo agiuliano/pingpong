@@ -1,25 +1,80 @@
 body {
-	background-color: grey;
+	background-color: #5dbede;
 }
 #gameCanvas {
 	background-color: black;
-	width: 640px;
-	height: 400px;
-	margin: auto;
-	align: center;
+	width: 1000px;
+	height: 600px;
+	float: left;
+	/*border: 2px solid;*/
+	border-color: black;
 }
 #scoreboard {
 	text-align: center;
 	font-family: Segoe UI, Helvetica, Ubuntu, sans-serif;
 	color: white;
+	float: right;
+	width: 210px;
+	border: 2px solid;
+	border-color: white;
+	position: absolute;
 }
-#scores {
+.scores {
 	font-size:600%; 
-	padding:0; 
-	margin:0;
 	color: white;
 }
+#player-name {
+	float: left;
+	padding: 20px;
+	font-size: 22pt;
+	/*border: 2px solid;
+	border-color: white;*/
+}
+#cpu-name {
+	float: right;
+	padding: 20px;
+	font-size: 22pt;
+	/*border: 2px solid;
+	border-color: white;*/
+}
+#player-points {
+	float: left;
+	padding: 20px;
+	/*border: 2px solid;
+	border-color: white;*/
+}
+#cpu-points {
+	float: right;
+	padding: 20px;
+	/*border: 2px solid;
+	border-color: white;*/
+}
+#instructions {
+	text-align: center;
+	font-family: Segoe UI, Helvetica, Ubuntu, sans-serif;
+	color: white;
+	float: right;
+	width: 230px;
+	border: 2px solid;
+	border-color: white;
+	position: absolute;
+	margin-left: 1000px;
+	font-family: Avenir, Arial, Helvetica;
+}
+#instructions p {
+	text-align: justify;
+	padding-left: 10px;
+}
+/*
+#instructions h2 {
+	font
+}
+*/
 #title {
 	background-color: white;
-	color: black;
+	color: #5dbede;
+	margin: 0 auto;
+}
+#h1 {
+	padding: 0;
 }

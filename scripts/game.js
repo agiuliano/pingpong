@@ -350,12 +350,10 @@ function ballBehaviour(){
 	// if ball goes off the 'left' side (Player's side)
 	if (ball.position.x <= -planeWidth/2)
 	{	
-
-		console.log("sto dando un punto");
 		//add 1 point to the opponent
 		score_P2++;
 		// update scoreboard HTML
-		document.getElementById("scores").innerHTML = score_P1 + "-" + score_P2;
+		document.getElementById("cpu-points").innerHTML = score_P2;
 		// reset ball to center
 		resetBall(2);
 		
@@ -368,7 +366,7 @@ function ballBehaviour(){
 		// Player scores
 		score_P1++;
 		// update scoreboard HTML
-		document.getElementById("scores").innerHTML = score_P1 + "-" + score_P2;
+		document.getElementById("player-points").innerHTML = score_P1;
 		// reset ball to center
 		resetBall(1);
 		
@@ -470,9 +468,6 @@ function checkScore(){
 		ball.position.x = 0;
 		ball.position.y = 0;
 	}
-	console.log("score1 "+score_P1);
-	console.log("score2 "+score_P2);
-	console.log("speed = "+ballSpeed);
 }
 //--------------------------------------------------------------------------
 
