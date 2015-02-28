@@ -1,3 +1,14 @@
+html,
+body {
+	height: 100%;
+	min-width: 1280px;
+	overflow: hidden;
+}
+
+* {
+	box-sizing: border-box;
+}
+
 body {
 	background-color: #5dbede;
 }
@@ -5,9 +16,10 @@ body {
 	background-color: black;
 	width: 1000px;
 	height: 600px;
-	float: left;
+	/*float: left;*/
 	/*border: 2px solid;*/
-	border-color: black;
+	margin: 0 auto;
+	position: relative;
 }
 #scoreboard {
 	text-align: center;
@@ -15,9 +27,13 @@ body {
 	color: white;
 	float: right;
 	width: 210px;
+	min-height: 242px;
 	border: 2px solid;
 	border-color: white;
 	position: absolute;
+	top: 20px;
+	left: 50%;
+	margin-left: -540px;
 }
 .scores {
 	font-size:600%; 
@@ -58,7 +74,9 @@ body {
 	border: 2px solid;
 	border-color: white;
 	position: absolute;
-	margin-left: 1000px;
+	top: 20px;
+	left: 50%;
+	margin-left: 325px;
 	font-family: Avenir, Arial, Helvetica;
 }
 #instructions p {
@@ -77,4 +95,15 @@ body {
 }
 #h1 {
 	padding: 0;
+}
+
+#score-container {
+	overflow: hidden;
+}
+
+#scores {
+	padding: 20px;
+	text-align: center;
+	font-size: 45px;
+	display: none;
 }

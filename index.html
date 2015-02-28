@@ -3,26 +3,33 @@
   <head>
 		<title>Game</title>
 		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/animate.css">
 
 	</head>
 	<body onload='setup();'>
-		<div id='gameCanvas'></div>
+		<div id='gameCanvas'>
+			<div id='scoreboard'>
+				<h1 id='title'>CRAZY BALL</h1>
+				<div id="score-container">
+					<div id='player-name' class='names'>YOU</div>
+					<div id='cpu-name' class='names'>CPU</div>
+					<div id='player-points' class='scores'>0</div>
+					<div id='cpu-points' class='scores'>0</div>
+				</div>
+				<div id="scores"></div>
+			</div>
+			<div id='instructions'>
+				<h2 id='winnerBoard'>First to 5 wins!</h2>
+				<p>SPACE: start a new round</p>
+				<p>A: move left</p>
+				<p>D: move right</p>
+				<p>S: jump</p>
+			</div>
+		</div>
 		<script src='scripts/three.min.js'></script>
 		<script src='scripts/keyboard.js'></script>
 		<script src='scripts/game.js'></script>
-		<div id='scoreboard'>
-			<h1 id='title'>CRAZY BALL</h1>
-			<div id='player-name' class='names'>YOU</div>
-			<div id='cpu-name' class='names'>CPU</div>
-			<div id='player-points' class='scores'>0</div>
-			<div id='cpu-points' class='scores'>0</div>
-		</div>
-		<div id='instructions'>
-			<h2 id='winnerBoard'>First to 5 wins!</h2>
-			<p>SPACE: start a new round</p>
-			<p>A: move left</p>
-			<p>D: move right</p>
-			<p>S: jump</p>
-		</div>
+		
+		
 	</body>
 </html>

@@ -353,7 +353,12 @@ function ballBehaviour(){
 		//add 1 point to the opponent
 		score_P2++;
 		// update scoreboard HTML
-		document.getElementById("cpu-points").innerHTML = score_P2;
+		var cpuPoints = document.getElementById("cpu-points");
+		cpuPoints.innerHTML = score_P2;
+		cpuPoints.className = "scores animated bounce";
+		setTimeout(function() {
+			cpuPoints.className = "scores";
+		}, 1000);
 		// reset ball to center
 		resetBall(2);
 		
@@ -366,7 +371,12 @@ function ballBehaviour(){
 		// Player scores
 		score_P1++;
 		// update scoreboard HTML
-		document.getElementById("player-points").innerHTML = score_P1;
+		var playerPints = document.getElementById("player-points");
+		playerPints.innerHTML = score_P1;
+		playerPints.className = "scores animated bounce";
+		setTimeout(function() {
+			playerPints.className = "scores";
+		}, 1000);
 		// reset ball to center
 		resetBall(1);
 		
@@ -449,6 +459,15 @@ function resetBall(loser){
 //--------------------------------------------------------------------------
 
 function checkScore(){
+	if (score_P1 === scoreToWin || score_P2 === scoreToWin) {
+		var scoreContainer = document.getElementById('score-container'),
+			resultContainer = document.getElementById('scores');
+
+		scoreContainer.style.display = 'none';
+		resultContainer.style.display = 'block';
+		resultContainer.className = "animated tada";
+	}
+
 	if(score_P1 === scoreToWin){
 		ballSpeed = 0;
 		
