@@ -16,13 +16,13 @@ var paddleWidth = 10, paddleHeight = 30, paddleDepth = 10, paddleQuality = 1;
 var ball, paddle1, paddle2;
 
 //ball movement
-var ballDirX = 1, ballDirY = 1, ballSpeed = 2;
+var ballDirX = 1, ballDirY = 1, ballSpeed = 3;
 
-var paddleSpeed = 3;
+var paddleSpeed = 6;
 var score_P1 = 0, score_P2 = 0; scoreToWin = 5;
 
 //higher value implies greater difficulty
-var set_diff = 0.7;
+var set_diff = 0.8;
 
 
 function setup()
@@ -89,6 +89,7 @@ function createLights()
 	var light1, light2, light3, light4, light5, light6;
 	var posX = (planeWidth/2) * 1.2;
 	var posY = (planeHeight/2) * 1.2;
+
 	//create a point light
 	// light1 = new THREE.PointLight(0xffffff);
 	// light1.position.x = planeWidth/4;
@@ -139,9 +140,12 @@ function createScene()
 	canvas.appendChild(renderer.domElement);
 
 //--------------------------------------------------------------------------	
+
+	var ball_texture = THREE.ImageUtils.loadTexture( "images/ball_texture.jpg" );
 	// create the sphere's material
 	var sphereMaterial = new THREE.MeshPhongMaterial({
-		color: 0x017ad4,
+		// color: 0x032149,
+		map: ball_texture
 	});
 	 
 	//Create a ball with SphereGeometry method
@@ -178,10 +182,12 @@ function createScene()
 	scene.add(plane);
 //--------------------------------------------------------------------------
 	
-		
+	var player_texture = THREE.ImageUtils.loadTexture( "images/player_texture.jpg" );
 	//create the first paddle
 	paddle1_Material = new THREE.MeshPhongMaterial({
-		color: 0xFFFF00 //1B32C0
+		// color: 0xFFFF00, //1B32C0
+		map: player_texture,
+		metal: true
 	});
 
 	paddle1 = new THREE.Mesh(new THREE.BoxGeometry(
@@ -201,9 +207,12 @@ function createScene()
 	paddle1.position.z = paddleDepth;
 	paddle1.scale.y = 0.01;
 	
+	var opponent_texture = THREE.ImageUtils.loadTexture( "images/opponent_texture.jpg" );
 	//create the second paddle
 	paddle2_Material = new THREE.MeshPhongMaterial({
-		color: 0xFF0000
+		// color: 0x000000,
+		map: opponent_texture,
+		metal: true
 	});
 	
 	paddle2 = new THREE.Mesh(new THREE.BoxGeometry(
