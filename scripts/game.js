@@ -1,7 +1,7 @@
 
 //variables for scene
 var renderer, scene, camera;
-var width = 640, height = 400;
+var width = 900, height = 600;
 
 //sphere's dimensions
 var radius = 5, segments = 10, rings = 10;
@@ -163,10 +163,10 @@ function createScene()
     createLights();
 //--------------------------------------------------------------------------
 	// create the plane's material	
-	var planeMaterial =
-	new THREE.MeshPhongMaterial(
+	var table_texture = THREE.ImageUtils.loadTexture( "images/table_texture.jpg" );
+	var planeMaterial = new THREE.MeshPhongMaterial(
 	{
-	    color: 0x4BD121
+		map: table_texture
 	});
 	 
 
@@ -280,13 +280,13 @@ function playerPaddleBehaviour()
 	if (Key.isDown(Key.S))
 	{
 		if (paddle1.position.x < -planeWidth * 0.45) {
-			paddle1.position.x += 1;
+			paddle1.position.x += 3;
 		}
 	}
 	else if (Key.isUp(Key.S))
 	{
 		if (paddle1.position.x > -planeWidth * 0.50) {
-			paddle1.position.x -= 3;
+			paddle1.position.x -= 5;
 		}
 	}
 
