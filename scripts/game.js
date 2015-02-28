@@ -2,6 +2,7 @@
 //variables for scene
 var renderer, scene, camera;
 var width = 1000, height = 600;
+var playing = false;
 
 //sphere's dimensions
 var radius = 5, segments = 10, rings = 10;
@@ -81,7 +82,7 @@ function draw()
 	opponentPaddleMovement();
     ballBehaviour();
     paddlePhysics();
-	
+    moveBall();
 }
 
 function createLights()
@@ -161,10 +162,10 @@ function createScene()
     createLights();
 //--------------------------------------------------------------------------
 	// create the plane's material	
-	var table_texture = THREE.ImageUtils.loadTexture( "images/table_texture.jpg" );
+	var plane_texture = THREE.ImageUtils.loadTexture( "images/plane_texture.jpg" );
 	var planeMaterial = new THREE.MeshPhongMaterial(
 	{
-		map: table_texture
+		map: plane_texture
 	});
 	 
 
@@ -179,8 +180,9 @@ function createScene()
 	 
 	scene.add(plane);
 
+	var wood_texture = THREE.ImageUtils.loadTexture( "images/wood_texture.jpg" );
 	var table_material = new THREE.MeshPhongMaterial({
-		color: 0x1B32C0, //1B32C0
+		map: wood_texture,
 		metal: true
 	});
 	var table = new THREE.Mesh(new THREE.BoxGeometry(
@@ -298,6 +300,12 @@ function playerPaddleBehaviour()
 		}
 	}
 
+	if (Key.isDown(Key.SPACE))
+	{
+		console.log(playing);
+		playing = true;
+	}
+
 	//when the game starts the paddle will be resized to 1
 	paddle1.scale.y += (1 - paddle1.scale.y) * 0.2;	
 
@@ -342,6 +350,8 @@ function ballBehaviour(){
 	// if ball goes off the 'left' side (Player's side)
 	if (ball.position.x <= -planeWidth/2)
 	{	
+
+		console.log("sto dando un punto");
 		//add 1 point to the opponent
 		score_P2++;
 		// update scoreboard HTML
@@ -376,41 +386,66 @@ function ballBehaviour(){
 		ballDirY = -ballDirY;
 	}
 	
-	//Update ball position over time
-	ball.position.x += ballDirX * ballSpeed;
-	ball.position.y += ballDirY * ballSpeed;
+	// //Update ball position over time
+	// ball.position.x += ballDirX * ballSpeed;
+	// ball.position.y += ballDirY * ballSpeed;
 	
-	// limit ball's y-speed to 2x the x-speed
-	// this is so the ball doesn't speed from left to right super fast
-	// keeps game playable for humans
-	if (ballDirY > ballSpeed * 2)
-	{
-		ballDirY = ballSpeed * 2;
-	}
-	else if (ballDirY < -ballSpeed * 2)
-	{
-		ballDirY = -ballSpeed * 2;
+	// // limit ball's y-speed to 2x the x-speed
+	// // this is so the ball doesn't speed from left to right super fast
+	// // keeps game playable for humans
+	// if (ballDirY > ballSpeed * 2)
+	// {
+	// 	ballDirY = ballSpeed * 2;
+	// }
+	// else if (ballDirY < -ballSpeed * 2)
+	// {
+	// 	ballDirY = -ballSpeed * 2;
+	// }
+}
+
+function moveBall()
+{
+	if (playing == true) {
+		//Update ball position over time
+		ball.position.x += ballDirX * ballSpeed;
+		ball.position.y += ballDirY * ballSpeed;
+		
+		// limit ball's y-speed to 2x the x-speed
+		// this is so the ball doesn't speed from left to right super fast
+		// keeps game playable for humans
+		if (ballDirY > ballSpeed * 2)
+		{
+			ballDirY = ballSpeed * 2;
+		}
+		else if (ballDirY < -ballSpeed * 2)
+		{
+			ballDirY = -ballSpeed * 2;
+		}
 	}
 }
+
 //--------------------------------------------------------------------------
-function resetBall(loser){	
-	// if player lost the last point, we send the ball to opponent
+function resetBall(loser){
+	playing = false;
+	console.log("looser "+loser);
+
 	if (loser == 1)
 	{
-		ball.position.x = planeWidth/2;
+		ball.position.x = (planeWidth/2)*0.8;
 		ball.position.y = 0;
 		ballDirX = -1;
 	}
-	// else if opponent lost, we send ball to player
+
 	else
 	{
-		ball.position.x = -planeWidth/2;
-		ball.position.y = 0;
+		ball.position.x = -(planeWidth/2)*0.8;
+
 		ballDirX = 1;
 	}
 	
 	// set the ball to move +ve in y plane (towards left from the camera)
 	ballDirY = 1;
+
 }
 
 //--------------------------------------------------------------------------
@@ -422,6 +457,7 @@ function checkScore(){
 		document.getElementById("scores").innerHTML = "Player wins!";		
 		document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
 		ball.position.x = 0;
+		ball.position.y = 0;
 
 	}
 	
@@ -432,8 +468,11 @@ function checkScore(){
 		document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
 		
 		ball.position.x = 0;
+		ball.position.y = 0;
 	}
-
+	console.log("score1 "+score_P1);
+	console.log("score2 "+score_P2);
+	console.log("speed = "+ballSpeed);
 }
 //--------------------------------------------------------------------------
 
