@@ -509,7 +509,7 @@ function paddlePhysics()
 			if (ballDirX < 0)
 			{
 				// put some code to indicate a hit
-				
+				document.getElementById('ding').play();
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
 				// we impact ball angle when hitting it
@@ -536,7 +536,7 @@ function paddlePhysics()
 			if (ballDirX > 0)
 			{
 				// put some code to indicate a hit
-				
+				document.getElementById('ding').play();
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
 				// we impact ball angle when hitting it
