@@ -387,11 +387,14 @@ function ballBehaviour(){
 	if (ball.position.y <= -planeHeight/2)
 	{
 		ballDirY = -ballDirY;
+		document.getElementById('plop').play();
+
 	}	
 	// if ball goes off the bottom side (side of table)
 	if (ball.position.y >= planeHeight/2)
 	{
 		ballDirY = -ballDirY;
+		document.getElementById('plop').play();
 	}
 	
 	// //Update ball position over time
@@ -435,7 +438,6 @@ function moveBall()
 //--------------------------------------------------------------------------
 function resetBall(loser){
 	playing = false;
-	console.log("looser "+loser);
 
 	if (loser == 1)
 	{
@@ -459,6 +461,7 @@ function resetBall(loser){
 //--------------------------------------------------------------------------
 
 function checkScore(){
+	document.getElementById('peep').play();
 	if (score_P1 === scoreToWin || score_P2 === scoreToWin) {
 		var scoreContainer = document.getElementById('score-container'),
 			resultContainer = document.getElementById('scores');
@@ -509,7 +512,7 @@ function paddlePhysics()
 			if (ballDirX < 0)
 			{
 				// put some code to indicate a hit
-				document.getElementById('ding').play();
+				document.getElementById('beep').play();
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
 				// we impact ball angle when hitting it
@@ -536,7 +539,7 @@ function paddlePhysics()
 			if (ballDirX > 0)
 			{
 				// put some code to indicate a hit
-				document.getElementById('ding').play();
+				document.getElementById('beep').play();
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
 				// we impact ball angle when hitting it
