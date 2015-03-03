@@ -181,6 +181,9 @@ function createScene()
 	    planeMaterial);
 	 
 	scene.add(plane);
+	plane.receiveShadow = true;
+	plane.castShadow = true;
+	
 
 	var wood_texture = THREE.ImageUtils.loadTexture( "images/wood_texture.jpg" );
 	var table_material = new THREE.MeshPhongMaterial({
@@ -192,6 +195,8 @@ function createScene()
 			table_material);
 	table.position.z = -6;
 	scene.add(table);
+	table.receiveShadow = true;
+	table.castShadow = true;
 //--------------------------------------------------------------------------
 	
 	var player_texture = THREE.ImageUtils.loadTexture( "images/player_texture.jpg" );
