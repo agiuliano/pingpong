@@ -10,10 +10,10 @@ body {
 }
 
 body {
-	background-color: #5dbede;
+	background-color: #000099;
 }
 #gameCanvas {
-	background-color: #5dbede;
+	background-color: #000099;
 	width: 1000px;
 	height: 600px;
 	/*float: left;*/
@@ -90,7 +90,7 @@ body {
 */
 #title {
 	background-color: white;
-	color: #5dbede;
+	color: #000099;
 	margin: 0 auto;
 }
 #h1 {

@@ -76,7 +76,7 @@ function draw()
     // draw THREE.JS scene
 
     renderer.render(scene, camera);
-    renderer.setClearColor(0x5dbede, 1);
+    renderer.setClearColor(0x000099, 1);
 	
 
  
@@ -436,22 +436,6 @@ function ballBehaviour(){
 		ballDirY = -ballDirY;
 		document.getElementById('plop').play();
 	}
-	
-	// //Update ball position over time
-	// ball.position.x += ballDirX * ballSpeed;
-	// ball.position.y += ballDirY * ballSpeed;
-	
-	// // limit ball's y-speed to 2x the x-speed
-	// // this is so the ball doesn't speed from left to right super fast
-	// // keeps game playable for humans
-	// if (ballDirY > ballSpeed * 2)
-	// {
-	// 	ballDirY = ballSpeed * 2;
-	// }
-	// else if (ballDirY < -ballSpeed * 2)
-	// {
-	// 	ballDirY = -ballSpeed * 2;
-	// }
 }
 
 function moveBall()
@@ -489,7 +473,6 @@ function resetBall(loser){
 	else
 	{
 		ball.position.x = -(planeWidth/2)*0.8;
-
 		ballDirX = 1;
 	}
 	
@@ -592,6 +575,6 @@ function paddlePhysics()
 }
 
 function setDifficulty(val_D){
-	var adjustment = 0.5;
+	var adjustment = 0.3;
 	set_diff = val_D * adjustment;
 }
