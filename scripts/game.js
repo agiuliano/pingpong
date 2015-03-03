@@ -162,7 +162,7 @@ function createScene()
 
 	ball.position.z = radius;
 	// ball.receiveShadow = true;
-    // ball.castShadow = true;
+    ball.castShadow = true;
 
     createLights();
 //--------------------------------------------------------------------------
@@ -190,45 +190,27 @@ function createScene()
 	
 	
 	
+	//TO SHOW THE SHADOWS OF THE TABLE
 	
-	
-	var planeMaterial2 = new THREE.MeshPhongMaterial(
-	{
-		color: 0x5dbede
-	});
+	// var planeMaterial2 = new THREE.MeshPhongMaterial(
+	// {
+		// color: 0x5dbede
+	// });
 	 
 
-	// create the playing surface plane
-	var plane2 = new THREE.Mesh(
-	    new THREE.PlaneGeometry(
-	    planeWidth2,
-	    planeHeight2,
-	    planeQuality,
-	    planeQuality),
-	    planeMaterial2);
-	 plane2.position.z = -200;
-	scene.add(plane2);
-	plane2.receiveShadow = true;
-	// plane2.castShadow = true;
+	//create the playing surface plane
+	// var plane2 = new THREE.Mesh(
+	    // new THREE.PlaneGeometry(
+	    // planeWidth2,
+	    // planeHeight2,
+	    // planeQuality,
+	    // planeQuality),
+	    // planeMaterial2);
+	 // plane2.position.z = -200;
+	// scene.add(plane2);
+	// plane2.receiveShadow = true;
+	//plane2.castShadow = true;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	var wood_texture = THREE.ImageUtils.loadTexture( "images/wood_texture.jpg" );
 	var table_material = new THREE.MeshPhongMaterial({
 		map: wood_texture,
@@ -500,7 +482,7 @@ function resetBall(loser){
 	if (loser == 1)
 	{
 		ball.position.x = (planeWidth/2)*0.8;
-		ball.position.y = 0;
+		//ball.position.y = 0;
 		ballDirX = -1;
 	}
 
