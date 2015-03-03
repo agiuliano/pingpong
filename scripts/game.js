@@ -28,7 +28,6 @@ var score_P1 = 0, score_P2 = 0; scoreToWin = 5;
 //higher value implies greater difficulty
 var set_diff = 0.6;
 var start_play = false;
-var val, sel;
 
 function setup()
 {
