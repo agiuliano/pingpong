@@ -10,9 +10,6 @@ var radius = 5, segments = 10, rings = 10;
 //variables for the plane
 var planeWidth = 400, planeHeight = 200, planeQuality = 50;
 
-//variables for the plane below
-var planeWidth2 = 1000, planeHeight2 = 800; 
-
 //variables for the paddles
 var paddleWidth = 10, paddleHeight = 30, paddleDepth = 10, paddleQuality = 1;
 
@@ -20,13 +17,13 @@ var paddleWidth = 10, paddleHeight = 30, paddleDepth = 10, paddleQuality = 1;
 var ball, paddle1, paddle2;
 
 //ball movement
-var ballDirX = 1, ballDirY = 1, ballSpeed = 3;
+var ballDirX = 1, ballDirY = 1, startingBallSpeed = 2, ballSpeed = 3;
 
-var paddleSpeed = 6;
+var startingPaddleSpeed = 5, paddleSpeed = 6;
 var score_P1 = 0, score_P2 = 0; scoreToWin = 5;
 
 //higher value implies greater difficulty
-var set_diff = 0.6;
+var set_diff = 0.3;
 var start_play = false;
 
 function setup()
@@ -573,7 +570,12 @@ function paddlePhysics()
 	}
 }
 
-function setDifficulty(val_D){
+function setDifficulty(level){
+	level = parseInt(level);
+
 	var adjustment = 0.3;
-	set_diff = val_D * adjustment;
+	set_diff = level * adjustment;
+	
+	ballSpeed = startingBallSpeed + level;
+	paddleSpeed = startingPaddleSpeed + level;
 }
