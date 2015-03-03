@@ -219,7 +219,7 @@ function createScene()
 	
 	//to make the shadow
 	paddle1.receiveShadow = true;
-	paddle1.castShadow = true;
+	 //paddle1.castShadow = true;
 			
 	paddle1.position.z = paddleDepth/2;
 	paddle1.scale.y = 0.01;
@@ -244,7 +244,7 @@ function createScene()
 	
 	//to make the shadow
 	paddle2.receiveShadow = true;
-	paddle2.castShadow = true;
+	// paddle2.castShadow = true;
 
 	paddle2.position.z = paddleDepth/2;
 	
