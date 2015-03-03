@@ -23,8 +23,9 @@ var paddleSpeed = 6;
 var score_P1 = 0, score_P2 = 0; scoreToWin = 5;
 
 //higher value implies greater difficulty
-var set_diff = 0.8;
-
+var set_diff = 0.6;
+var start_play = false;
+var val, sel;
 
 function setup()
 {
@@ -302,6 +303,13 @@ function playerPaddleBehaviour()
 
 	if (Key.isDown(Key.SPACE))
 	{
+		if(score_P1 == 0 && score_P2 == 0){
+			
+			// sel = document.getElementById("select").selectedIndex;
+			// val = document.getElementsByTagName("option")[sel].value
+			// console.log(val);
+			start_play = true;
+		}
 		console.log(playing);
 		playing = true;
 	}
@@ -547,6 +555,31 @@ function paddlePhysics()
 				// allows you to 'slice' the ball to beat the opponent
 				ballDirY -= paddle2DirY * 0.7;
 			}
+		}
+	}
+}
+
+function setDifficulty(val_D){
+	if(start_play){
+		window.alert("Impossible to change the difficulty while you are playing! \n If you want to do this, restart the Game!");
+		if(set_diff == 0.2){
+				// document.getElementById("select").
+		}
+		
+	}
+	else{
+		if(val_D == "v1"){
+			set_diff = 0.2;
+			console.log("il set_diff ora è :" + set_diff);
+		}
+		if(val_D == "v2"){
+			set_diff = 0.6;
+			console.log("il set_diff ora è :" + set_diff);
+		}
+	
+		if(val_D == "v3"){
+			set_diff = 1.2;
+			console.log("il set_diff ora è :" + set_diff);
 		}
 	}
 }

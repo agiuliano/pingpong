@@ -24,6 +24,14 @@
 				<p>A: move left</p>
 				<p>D: move right</p>
 				<p>S: jump</p>
+				<p>Choose Difficulty: 
+				<select name="select" onchange=setDifficulty(this.value)>
+					
+					<option value="v1">Easy</option> 
+					<option value="v2" selected>Medium</option>
+					<option value="v3">Hard</option>
+				</select> 
+				</p>
 			</div>
 		</div>
 		<script src='scripts/three.min.js'></script>
