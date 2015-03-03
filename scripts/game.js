@@ -309,6 +309,7 @@ function playerPaddleBehaviour()
 			// val = document.getElementsByTagName("option")[sel].value
 			// console.log(val);
 			start_play = true;
+			document.getElementById("level").disabled = true;
 		}
 		console.log(playing);
 		playing = true;
@@ -560,26 +561,6 @@ function paddlePhysics()
 }
 
 function setDifficulty(val_D){
-	if(start_play){
-		window.alert("Impossible to change the difficulty while you are playing! \n If you want to do this, restart the Game!");
-		if(set_diff == 0.2){
-				// document.getElementById("select").
-		}
-		
-	}
-	else{
-		if(val_D == "v1"){
-			set_diff = 0.2;
-			console.log("il set_diff ora è :" + set_diff);
-		}
-		if(val_D == "v2"){
-			set_diff = 0.6;
-			console.log("il set_diff ora è :" + set_diff);
-		}
-	
-		if(val_D == "v3"){
-			set_diff = 1.2;
-			console.log("il set_diff ora è :" + set_diff);
-		}
-	}
+	var adjustment = 0.5;
+	set_diff = val_D * adjustment;
 }
