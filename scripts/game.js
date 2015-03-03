@@ -576,6 +576,6 @@ function setDifficulty(level){
 	var adjustment = 0.3;
 	set_diff = level * adjustment;
 	
-	ballSpeed = startingBallSpeed + level;
-	paddleSpeed = startingPaddleSpeed + level;
+	ballSpeed = startingBallSpeed + level * (1 - adjustment);
+	paddleSpeed = startingPaddleSpeed + level * (1 - adjustment);
 }
