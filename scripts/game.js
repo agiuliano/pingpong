@@ -466,7 +466,7 @@ function resetBall(loser){
 	if (loser == 1)
 	{
 		ball.position.x = (planeWidth/2)*0.8;
-		//ball.position.y = 0;
+		ball.position.y = 0;
 		ballDirX = -1;
 	}
 
