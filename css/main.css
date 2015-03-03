@@ -33,7 +33,7 @@ body {
 	position: absolute;
 	top: 20px;
 	left: 50%;
-	margin-left: -540px;
+	margin-left: -550px;
 }
 .scores {
 	font-size:600%; 
@@ -76,7 +76,7 @@ body {
 	position: absolute;
 	top: 20px;
 	left: 50%;
-	margin-left: 325px;
+	margin-left: 350px;
 	font-family: Avenir, Arial, Helvetica;
 }
 #instructions p {
