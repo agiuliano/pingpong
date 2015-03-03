@@ -73,7 +73,8 @@ function draw()
     // draw THREE.JS scene
 
     renderer.render(scene, camera);
-    renderer.setClearColor(0x5dbede, 1)
+    renderer.setClearColor(0x5dbede, 1);
+	
 
  
     // loop the draw() function
@@ -124,6 +125,7 @@ function createLights()
 	light5.position.set( -posX, 0, 20 );
 	light5.castShadow = true;
 	scene.add(light5);
+	
 }
 
 
@@ -134,7 +136,6 @@ function createScene()
 
 	renderer = new THREE.WebGLRenderer();
 	
-
 	scene = new THREE.Scene();
 
 	renderer.setSize(width, height);
@@ -242,6 +243,8 @@ function createScene()
 
 	paddle2.position.z = paddleDepth/2;
 	
+	
+	renderer.shadowMapEnabled = true;
 //--------------------------------------------------------------------------	
 	
 }
@@ -304,10 +307,7 @@ function playerPaddleBehaviour()
 	if (Key.isDown(Key.SPACE))
 	{
 		if(score_P1 == 0 && score_P2 == 0){
-			
-			// sel = document.getElementById("select").selectedIndex;
-			// val = document.getElementsByTagName("option")[sel].value
-			// console.log(val);
+
 			start_play = true;
 			document.getElementById("level").disabled = true;
 		}
