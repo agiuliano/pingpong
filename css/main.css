@@ -13,7 +13,7 @@ body {
 	background-color: #5dbede;
 }
 #gameCanvas {
-	background-color: black;
+	background-color: #5dbede;
 	width: 1000px;
 	height: 600px;
 	/*float: left;*/

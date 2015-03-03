@@ -10,6 +10,9 @@ var radius = 5, segments = 10, rings = 10;
 //variables for the plane
 var planeWidth = 400, planeHeight = 200, planeQuality = 50;
 
+//variables for the plane below
+var planeWidth2 = 1000, planeHeight2 = 800; 
+
 //variables for the paddles
 var paddleWidth = 10, paddleHeight = 30, paddleDepth = 10, paddleQuality = 1;
 
@@ -93,13 +96,13 @@ function createLights()
 	var posX = (planeWidth/2) * 1.2;
 	var posY = (planeHeight/2) * 1.2;
 
-	point_light = new THREE.PointLight(0xffffff);
-	point_light.position.x = -planeWidth/2+40;
-	point_light.position.y = 0;
-	point_light.position.z = 60;
-	point_light.intensity = 1;
-	point_light.distance = 100;
-	scene.add(point_light);
+	// point_light = new THREE.PointLight(0xffffff);
+	// point_light.position.x = -planeWidth/2+40;
+	// point_light.position.y = 0;
+	// point_light.position.z = 60;
+	// point_light.intensity = 1;
+	// point_light.distance = 0; //100
+	// scene.add(point_light);
 
 	light1 = new THREE.SpotLight(0xffffff, 2);
 	light1.position.set( -posX, -posY, 30 );
@@ -158,8 +161,8 @@ function createScene()
 	
 
 	ball.position.z = radius;
-	ball.receiveShadow = true;
-    ball.castShadow = true;
+	// ball.receiveShadow = true;
+    // ball.castShadow = true;
 
     createLights();
 //--------------------------------------------------------------------------
@@ -183,6 +186,47 @@ function createScene()
 	scene.add(plane);
 	plane.receiveShadow = true;
 	plane.castShadow = true;
+	
+	
+	
+	
+	
+	
+	var planeMaterial2 = new THREE.MeshPhongMaterial(
+	{
+		color: 0x5dbede
+	});
+	 
+
+	// create the playing surface plane
+	var plane2 = new THREE.Mesh(
+	    new THREE.PlaneGeometry(
+	    planeWidth2,
+	    planeHeight2,
+	    planeQuality,
+	    planeQuality),
+	    planeMaterial2);
+	 plane2.position.z = -200;
+	scene.add(plane2);
+	plane2.receiveShadow = true;
+	// plane2.castShadow = true;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	var wood_texture = THREE.ImageUtils.loadTexture( "images/wood_texture.jpg" );
@@ -218,7 +262,7 @@ function createScene()
 	paddle1.position.x = -planeWidth/2 + paddleWidth/2;
 	
 	//to make the shadow
-	paddle1.receiveShadow = true;
+	// paddle1.receiveShadow = true;
 	 //paddle1.castShadow = true;
 			
 	paddle1.position.z = paddleDepth/2;
@@ -243,7 +287,7 @@ function createScene()
 	paddle2.position.x = planeWidth/2 - paddleWidth;
 	
 	//to make the shadow
-	paddle2.receiveShadow = true;
+	// paddle2.receiveShadow = true;
 	// paddle2.castShadow = true;
 
 	paddle2.position.z = paddleDepth/2;
