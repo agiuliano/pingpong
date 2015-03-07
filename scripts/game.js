@@ -92,14 +92,6 @@ function createLights()
 	var posX = (planeWidth/2) * 1.2;
 	var posY = (planeHeight/2) * 1.2;
 
-	// point_light = new THREE.PointLight(0xffffff);
-	// point_light.position.x = -planeWidth/2+40;
-	// point_light.position.y = 0;
-	// point_light.position.z = 60;
-	// point_light.intensity = 1;
-	// point_light.distance = 0; //100
-	// scene.add(point_light);
-
 	light1 = new THREE.SpotLight(0xffffff, 2);
 	light1.position.set( -posX, -posY, 30 );
 	light1.castShadow = true;
@@ -126,8 +118,6 @@ function createLights()
 	scene.add(light5);
 	
 }
-
-
 function createScene()
 {	
 	 
@@ -140,8 +130,6 @@ function createScene()
 	renderer.setSize(width, height);
 
 	canvas.appendChild(renderer.domElement);
-
-//--------------------------------------------------------------------------	
 
 	// create the sphere's material
 	var sphereMaterial = new THREE.MeshPhongMaterial({
@@ -161,7 +149,7 @@ function createScene()
     ball.castShadow = true;
 
     createLights();
-//--------------------------------------------------------------------------
+
 	// create the plane's material	
 	var plane_texture = THREE.ImageUtils.loadTexture( "images/plane_texture.jpg" );
 	var planeMaterial = new THREE.MeshPhongMaterial(
@@ -169,7 +157,6 @@ function createScene()
 		map: plane_texture
 	});
 	 
-
 	// create the playing surface plane
 	var plane = new THREE.Mesh(
 	    new THREE.PlaneGeometry(
@@ -182,31 +169,7 @@ function createScene()
 	scene.add(plane);
 	plane.receiveShadow = true;
 	plane.castShadow = true;
-	
-	
-	
-	
-	//TO SHOW THE SHADOWS OF THE TABLE
-	
-	// var planeMaterial2 = new THREE.MeshPhongMaterial(
-	// {
-		// color: 0x5dbede
-	// });
-	 
 
-	//create the playing surface plane
-	// var plane2 = new THREE.Mesh(
-	    // new THREE.PlaneGeometry(
-	    // planeWidth2,
-	    // planeHeight2,
-	    // planeQuality,
-	    // planeQuality),
-	    // planeMaterial2);
-	 // plane2.position.z = -200;
-	// scene.add(plane2);
-	// plane2.receiveShadow = true;
-	//plane2.castShadow = true;
-	
 	var wood_texture = THREE.ImageUtils.loadTexture( "images/wood_texture.jpg" );
 	var table_material = new THREE.MeshPhongMaterial({
 		map: wood_texture,
@@ -219,7 +182,6 @@ function createScene()
 	scene.add(table);
 	table.receiveShadow = true;
 	table.castShadow = true;
-//--------------------------------------------------------------------------
 	
 	var player_texture = THREE.ImageUtils.loadTexture( "images/player_texture.jpg" );
 	//create the first paddle
@@ -270,13 +232,9 @@ function createScene()
 
 	paddle2.position.z = paddleDepth/2;
 	
-	
-	renderer.shadowMapEnabled = true;
-//--------------------------------------------------------------------------	
-	
+	renderer.shadowMapEnabled = true;	
 }
 
-//--------------------------------------------------------------------------
 function playerPaddleBehaviour()
 {
 	// move left
@@ -347,7 +305,7 @@ function playerPaddleBehaviour()
 
 	paddle1.position.y += paddle1DirY;
 }
-//--------------------------------------------------------------------------
+
 function opponentPaddleMovement(){
 
 	//The axis of the paddle's movement is y
@@ -381,7 +339,6 @@ function opponentPaddleMovement(){
 	}
 }
 
-//--------------------------------------------------------------------------
 function ballBehaviour(){
 	// if ball goes off the 'left' side (Player's side)
 	if (ball.position.x <= -planeWidth/2)
@@ -455,7 +412,6 @@ function moveBall()
 	}
 }
 
-//--------------------------------------------------------------------------
 function resetBall(loser){
 	playing = false;
 
@@ -476,8 +432,6 @@ function resetBall(loser){
 	ballDirY = 1;
 
 }
-
-//--------------------------------------------------------------------------
 
 function checkScore(){
 	document.getElementById('peep').play();
@@ -510,8 +464,6 @@ function checkScore(){
 		ball.position.y = 0;
 	}
 }
-//--------------------------------------------------------------------------
-
 
 function paddlePhysics()
 {
