@@ -74,8 +74,6 @@ function draw()
     renderer.render(scene, camera);
     renderer.setClearColor(0x000099, 1);
 	
-
- 
     // loop the draw() function
     requestAnimationFrame(draw);
 
@@ -160,7 +158,7 @@ function createScene()
 	// create the playing surface plane
 	var plane = new THREE.Mesh(
 	    new THREE.PlaneGeometry(
-	    planeWidth * 0.95,	// 95% of table width, since we want to show where the ball goes out-of-bounds
+	    planeWidth * 0.95,	//to show where the ball goes out-of-bounds
 	    planeHeight,
 	    planeQuality,
 	    planeQuality),
@@ -186,7 +184,6 @@ function createScene()
 	var player_texture = THREE.ImageUtils.loadTexture( "images/player_texture.jpg" );
 	//create the first paddle
 	paddle1_Material = new THREE.MeshPhongMaterial({
-		// color: 0xFFFF00, //1B32C0
 		map: player_texture,
 		metal: true
 	});
@@ -208,10 +205,10 @@ function createScene()
 	paddle1.position.z = paddleDepth/2;
 	paddle1.scale.y = 0.01;
 	
-	var opponent_texture = THREE.ImageUtils.loadTexture( "images/opponent_texture.jpg" );
 	//create the second paddle
+	var opponent_texture = THREE.ImageUtils.loadTexture( "images/opponent_texture.jpg" );
+	
 	paddle2_Material = new THREE.MeshPhongMaterial({
-		// color: 0x000000,
 		map: opponent_texture,
 		metal: true
 	});
@@ -219,16 +216,11 @@ function createScene()
 	paddle2 = new THREE.Mesh(new THREE.BoxGeometry(
 			paddleWidth, paddleHeight, paddleDepth),
 			paddle2_Material);
-	
 	//add paddle2 to the scene
 	scene.add(paddle2);
 	
 	//set position of paddle1
 	paddle2.position.x = planeWidth/2 - paddleWidth;
-	
-	//to make the shadow
-	// paddle2.receiveShadow = true;
-	// paddle2.castShadow = true;
 
 	paddle2.position.z = paddleDepth/2;
 	
@@ -240,14 +232,11 @@ function playerPaddleBehaviour()
 	// move left
 	if (Key.isDown(Key.A))		
 	{
-		// if paddle is not touching the side of table
-		// we move
-		if (paddle1.position.y < planeHeight * 0.4)
+		// if paddle is not touching the side of table, we move
+		if (paddle1.position.y < planeHeight * 0.4) 
 		{
 			paddle1DirY = paddleSpeed;
 		}
-		// else we don't move and stretch the paddle
-		// to indicate we can't move
 		else
 		{
 			paddle1DirY = 0;
@@ -256,14 +245,11 @@ function playerPaddleBehaviour()
 	// move right
 	else if (Key.isDown(Key.D))
 	{
-		// if paddle is not touching the side of table
-		// we move
+		// if paddle is not touching the side of table, we move
 		if (paddle1.position.y > -planeHeight * 0.4)
 		{
 			paddle1DirY = -paddleSpeed;
 		}
-		// else we don't move and stretch the paddle
-		// to indicate we can't move
 		else
 		{
 			paddle1DirY = 0;
@@ -308,10 +294,8 @@ function playerPaddleBehaviour()
 
 function opponentPaddleMovement(){
 
-	//The axis of the paddle's movement is y
 	paddle2DirY = (ball.position.y - paddle2.position.y) * set_diff;
-
-	
+		
 	// nel caso in cui il valore incrementale sulla posizione y del paddle sia sotto i limiti
 	// di velocità dettati da paddlespeed, allora posso incrementare la posizione del paddle
 	// del valore paddle2DirY che ci serve per inseguire la palla
@@ -352,13 +336,14 @@ function ballBehaviour(){
 		setTimeout(function() {
 			cpuPoints.className = "scores";
 		}, 1000);
-		// reset ball to center
+		
+		//we set ball position in front of where it exits
 		resetBall(2);
 		
 		checkScore();		
 	}
 	
-	// if ball goes off the 'right' side (CPU's side)
+	// if ball goes off the 'right' side (opponent's side)
 	if (ball.position.x >= planeWidth/2)
 	{	
 		// Player scores
@@ -370,7 +355,7 @@ function ballBehaviour(){
 		setTimeout(function() {
 			playerPints.className = "scores";
 		}, 1000);
-		// reset ball to center
+		//we set ball position at the center in front of the opponent
 		resetBall(1);
 		
 		checkScore();
@@ -428,9 +413,10 @@ function resetBall(loser){
 		ballDirX = 1;
 	}
 	
-	// set the ball to move +ve in y plane (towards left from the camera)
+	//to reset the ball speed on the y axis
+	//otherwise we have that the ball starts whit the speed that it had 
+	//before exiting from the plain
 	ballDirY = 1;
-
 }
 
 function checkScore(){
@@ -482,7 +468,6 @@ function paddlePhysics()
 			// and if ball is travelling towards player (-ve direction)
 			if (ballDirX < 0)
 			{
-				// put some code to indicate a hit
 				document.getElementById('beep').play();
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
@@ -506,7 +491,7 @@ function paddlePhysics()
 		if (ball.position.y <= paddle2.position.y + paddleHeight/2
 		&&  ball.position.y >= paddle2.position.y - paddleHeight/2)
 		{
-			// and if ball is travelling towards opponent (+ve direction)
+			// and if ball is travelling towards opponent
 			if (ballDirX > 0)
 			{
 				// put some code to indicate a hit
