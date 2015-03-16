@@ -111,12 +111,10 @@ function createLights()
     scene.add(light4);
 
     //light5 = new THREE.SpotLight(0xffffff, 1);
-    light5 = new THREE.PointLight( 0xFFFF00, 2, 200 );
+    light5 = new THREE.PointLight( 0xffffff, 1);
     light5.position.set( -posX, 0, 20 );
 	
-    //light5.castShadow = true; (doesn't work)
     scene.add(light5);
-
 }
 
 function initializeBall()
