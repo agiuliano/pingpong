@@ -110,9 +110,11 @@ function createLights()
     light4.castShadow = true;
     scene.add(light4);
 
-    light5 = new THREE.SpotLight(0xffffff, 1);
+    //light5 = new THREE.SpotLight(0xffffff, 1);
+    light5 = new THREE.PointLight( 0xFFFF00, 2, 200 );
     light5.position.set( -posX, 0, 20 );
-    light5.castShadow = true;
+	
+    //light5.castShadow = true; (doesn't work)
     scene.add(light5);
 
 }
