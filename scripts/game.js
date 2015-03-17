@@ -3,7 +3,7 @@
 var renderer, scene, camera;
 var width = 1000, height = 600;
 var playing = false;
-
+var shadows = false;
 //sphere's dimensions
 var radius = 5, segments = 10, rings = 10;
 
@@ -92,22 +92,22 @@ function createLights()
 
     light1 = new THREE.SpotLight(0xffffff, 2);
     light1.position.set( -posX, -posY, 30 );
-    light1.castShadow = true;
+    light1.castShadow = shadows;
     scene.add(light1);
 
     light2 = new THREE.SpotLight(0xffffff, 2);
     light2.position.set( posX, posY, 30 );
-    light2.castShadow = true;
+    light2.castShadow = shadows;
     scene.add(light2);
 
     light3 = new THREE.SpotLight(0xffffff, 2);
     light3.position.set( posX, -posY, 30 );
-    light3.castShadow = true;
+    light3.castShadow = shadows;
     scene.add(light3);
 
     light4 = new THREE.SpotLight(0xffffff, 2);
     light4.position.set( -posX, posY, 30 );
-    light4.castShadow = true;
+    light4.castShadow = shadows;
     scene.add(light4);
 
     //light5 = new THREE.SpotLight(0xffffff, 1);
