@@ -3,7 +3,7 @@
 var renderer, scene, camera;
 var width = 1000, height = 600;
 var playing = false;
-var shadows = true;
+var shadows = false;
 //sphere's dimensions
 var radius = 5, segments = 10, rings = 10;
 
@@ -407,6 +407,7 @@ function resetBall(loser){
     else
     {
         ball.position.x = -(planeWidth/2)*0.8;
+        ball.position.y = 0;
         ballDirX = 1;
     }
 
