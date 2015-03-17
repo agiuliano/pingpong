@@ -3,7 +3,7 @@
 var renderer, scene, camera;
 var width = 1000, height = 600;
 var playing = false;
-var shadows = false;
+var shadows = true;
 //sphere's dimensions
 var radius = 5, segments = 10, rings = 10;
 
@@ -48,13 +48,8 @@ function setTheCamera()
 
     scene.add(camera);
 
-    //this is needed because otherwise we haven't a correct 
-    //rendering for the shadow
     camera.position.z = 320;
-
-    //old values camera
     camera.position.x = -planeWidth/2 - 110;
-
     camera.position.z = paddle1.position.z + 100;
     // camera.position.z = paddle1.position.z;
     //YAW rotation "Rotation around y axis
@@ -69,8 +64,6 @@ function setTheCamera()
 
 function draw()
 {
-    // draw THREE.JS scene
-
     renderer.render(scene, camera);
     renderer.setClearColor(0x000099, 1);
 
@@ -131,7 +124,6 @@ function initializeBall()
     scene.add(ball);
 
     ball.position.z = radius;
-    // ball.receiveShadow = true;
     ball.castShadow = true;
 }
 
@@ -139,9 +131,9 @@ function initializeTable()
 {
     var plane_texture = THREE.ImageUtils.loadTexture( "images/plane_texture.jpg" );
     var planeMaterial = new THREE.MeshPhongMaterial(
-        {
-            map: plane_texture
-        });
+    {
+        map: plane_texture
+    });
 
 
     // create the playing surface plane
@@ -155,8 +147,6 @@ function initializeTable()
 
     scene.add(plane);
     plane.receiveShadow = true;
-    plane.castShadow = true;
-
 
     var wood_texture = THREE.ImageUtils.loadTexture( "images/wood_texture.jpg" );
     var table_material = new THREE.MeshPhongMaterial({
@@ -169,7 +159,6 @@ function initializeTable()
     table.position.z = -6;
     scene.add(table);
     table.receiveShadow = true;
-    table.castShadow = true;
 }
 
 function initializePaddle()
@@ -177,7 +166,6 @@ function initializePaddle()
     var player_texture = THREE.ImageUtils.loadTexture( "images/player_texture.jpg" );
     //create the first paddle
     paddle1_Material = new THREE.MeshPhongMaterial({
-        // color: 0xFFFF00, //1B32C0
         map: player_texture,
         metal: true
     });
@@ -191,18 +179,12 @@ function initializePaddle()
 
     //set position of paddle1
     paddle1.position.x = -planeWidth/2 + paddleWidth/2;
-
-    //to make the shadow
-    // paddle1.receiveShadow = true;
-    //paddle1.castShadow = true;
-
     paddle1.position.z = paddleDepth/2;
     paddle1.scale.y = 0.01;
 
     var opponent_texture = THREE.ImageUtils.loadTexture( "images/opponent_texture.jpg" );
     //create the second paddle
     paddle2_Material = new THREE.MeshPhongMaterial({
-        // color: 0x000000,
         map: opponent_texture,
         metal: true
     });
@@ -297,7 +279,6 @@ function playerPaddleBehaviour()
             start_play = true;
             document.getElementById("level").disabled = true;
         }
-        console.log(playing);
         playing = true;
     }
 
